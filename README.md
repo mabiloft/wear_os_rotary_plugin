@@ -1,6 +1,7 @@
 # wear_os_rotary_plugin
 
-[![pub package](https://img.shields.io/badge/version-0.1.0-blue?style=flat-square)](https://pub.dev/packages/wear_os_rotary_plugin)
+[![pub package](https://img.shields.io/pub/v/wear_os_rotary_plugin.svg?style=flat-square)](https://pub.dev/packages/wear_os_rotary_plugin)
+[![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg?style=flat-square)](https://pub.dev/packages/very_good_analysis)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
 A Flutter package providing a beautiful circular scrollbar overlay for Wear OS screens. This package works seamlessly with the [`wearable_rotary`](https://pub.dev/packages/wearable_rotary) package to provide visual feedback for rotary input scrolling on Wear OS devices.
@@ -16,29 +17,17 @@ A Flutter package providing a beautiful circular scrollbar overlay for Wear OS s
 
 ## Installation
 
-### Depend on it
-
-Run this command:
-
-```bash
-flutter pub add wear_os_rotary_plugin
-```
-
-This will add a line like this to your package's `pubspec.yaml` (and run an implicit `flutter pub get`):
+Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
   wear_os_rotary_plugin: ^0.1.0
 ```
 
-Alternatively, your editor might support `flutter pub get`. Check the docs for your editor to learn more.
+Then run:
 
-### Import it
-
-Now in your Dart code, you can use:
-
-```dart
-import 'package:wear_os_rotary_plugin/wear_os_rotary_plugin.dart';
+```bash
+flutter pub get
 ```
 
 ## Android Configuration
