@@ -83,16 +83,13 @@ class BasicExampleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scrollController = RotaryScrollController();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Basic Example'),
       ),
       body: WearOsScrollbar(
-        controller: scrollController,
-        child: ListView.builder(
-          controller: scrollController,
+        builder: (BuildContext context, RotaryScrollController rotaryScrollController) => ListView.builder(
+          controller: rotaryScrollController,
           padding: const EdgeInsets.all(16),
           itemCount: 50,
           itemBuilder: (context, index) => Padding(
@@ -118,22 +115,19 @@ class CustomizedExampleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scrollController = RotaryScrollController();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Customized Example'),
       ),
       body: WearOsScrollbar(
-        controller: scrollController,
         autoHideDuration: const Duration(seconds: 2),
         padding: 12,
         width: 3,
         speed: 60,
         opacityAnimationCurve: Curves.easeOut,
         opacityAnimationDuration: const Duration(milliseconds: 300),
-        child: ListView.builder(
-          controller: scrollController,
+        builder: (BuildContext context, RotaryScrollController rotaryScrollController) => ListView.builder(
+          controller: rotaryScrollController,
           padding: const EdgeInsets.all(16),
           itemCount: 100,
           itemBuilder: (context, index) => Card(
@@ -159,17 +153,14 @@ class NoAutoHideExampleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scrollController = RotaryScrollController();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('No Auto-Hide Example'),
       ),
       body: WearOsScrollbar(
-        controller: scrollController,
         autoHide: false,
-        child: ListView.builder(
-          controller: scrollController,
+        builder: (BuildContext context, RotaryScrollController rotaryScrollController) => ListView.builder(
+          controller: rotaryScrollController,
           padding: const EdgeInsets.all(16),
           itemCount: 30,
           itemBuilder: (context, index) => Padding(

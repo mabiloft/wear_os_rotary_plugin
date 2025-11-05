@@ -9,12 +9,13 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:wearable_rotary/wearable_rotary.dart';
 export 'package:wearable_rotary/wearable_rotary.dart';
 
 /// A circular scrollbar overlay widget for Wear OS screens.
 ///
-/// The [WearOsScrollbar] widget displays a visual circular scrollbar that
-/// automatically tracks the scroll position of a connected [ScrollController].
+/// The [WearOsScrollbar] widget automatically manages a [RotaryScrollController]
+/// and wraps the child with a visual circular scrollbar that tracks scroll position.
 /// It's designed to work with the `wearable_rotary` package's `RotaryScrollController`
 /// to provide visual feedback for rotary input scrolling on Wear OS devices.
 ///
@@ -23,12 +24,9 @@ export 'package:wearable_rotary/wearable_rotary.dart';
 ///
 /// Example:
 /// ```dart
-/// final ScrollController scrollController = ScrollController();
-///
 /// WearOsScrollbar(
-///   controller: scrollController,
-///   child: ListView.builder(
-///     controller: scrollController,
+///   builder: (context, rotaryScrollController) => ListView.builder(
+///     controller: rotaryScrollController,
 ///     itemCount: 50,
 ///     itemBuilder: (context, index) => ListTile(
 ///       title: Text('Item $index'),
@@ -39,10 +37,9 @@ export 'package:wearable_rotary/wearable_rotary.dart';
 class WearOsScrollbar extends StatefulWidget {
   /// Creates a [WearOsScrollbar] widget.
   ///
-  /// The [controller] and [child] parameters must not be null.
+  /// The [builder] parameter must not be null.
   const WearOsScrollbar({
-    required this.controller,
-    required this.child,
+    required this.builder,
     super.key,
     this.autoHide = true,
     this.threshold = 0.2,
@@ -55,14 +52,12 @@ class WearOsScrollbar extends StatefulWidget {
     this.autoHideDuration = const Duration(milliseconds: 1500),
   });
 
-  /// The shared [ScrollController] which is also used in the scrollable view.
+  /// Builder function that receives the [RotaryScrollController] and builds
+  /// the scrollable widget.
   ///
-  /// This controller must be shared between the [WearOsScrollbar] and the
-  /// scrollable widget (e.g., [ListView], [SingleChildScrollView]).
-  final ScrollController controller;
-
-  /// The child widget to display with the scrollbar overlay.
-  final Widget child;
+  /// The controller is automatically created and managed by this widget.
+  /// It should be passed to the scrollable widget (e.g., [ListView], [SingleChildScrollView]).
+  final Widget Function(BuildContext context, RotaryScrollController rotaryScrollController) builder;
 
   /// Whether to automatically hide the scrollbar after scrolling stops.
   ///
@@ -124,10 +119,75 @@ class WearOsScrollbar extends StatefulWidget {
   final Duration autoHideDuration;
 
   @override
-  State<WearOsScrollbar> createState() => _WearOsScrollbarState();
+  State<WearOsScrollbar> createState() => _WearOsScrollbarBuilderState();
 }
 
-class _WearOsScrollbarState extends State<WearOsScrollbar> {
+class _WearOsScrollbarBuilderState extends State<WearOsScrollbar> {
+  late final RotaryScrollController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = RotaryScrollController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _WearOsScrollbar(
+      controller: _controller,
+      autoHide: widget.autoHide,
+      threshold: widget.threshold,
+      bezelCorrection: widget.bezelCorrection,
+      speed: widget.speed,
+      padding: widget.padding,
+      width: widget.width,
+      opacityAnimationCurve: widget.opacityAnimationCurve,
+      opacityAnimationDuration: widget.opacityAnimationDuration,
+      autoHideDuration: widget.autoHideDuration,
+      child: widget.builder(context, _controller),
+    );
+  }
+}
+
+/// Internal implementation of the scrollbar overlay widget.
+class _WearOsScrollbar extends StatefulWidget {
+  const _WearOsScrollbar({
+    required this.controller,
+    required this.child,
+    this.autoHide = true,
+    this.threshold = 0.2,
+    this.bezelCorrection = 0.5,
+    this.speed = 50.0,
+    this.padding = 8.0,
+    this.width = 2.0,
+    this.opacityAnimationCurve = Curves.easeInOut,
+    this.opacityAnimationDuration = const Duration(milliseconds: 500),
+    this.autoHideDuration = const Duration(milliseconds: 1500),
+  });
+
+  final ScrollController controller;
+  final Widget child;
+  final bool autoHide;
+  final double threshold;
+  final double bezelCorrection;
+  final double speed;
+  final double padding;
+  final double width;
+  final Curve opacityAnimationCurve;
+  final Duration opacityAnimationDuration;
+  final Duration autoHideDuration;
+
+  @override
+  State<_WearOsScrollbar> createState() => _WearOsScrollbarState();
+}
+
+class _WearOsScrollbarState extends State<_WearOsScrollbar> {
   double _position = 0;
   double _maxPosition = 0;
   double _thumbSize = 0;
