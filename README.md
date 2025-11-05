@@ -1,7 +1,7 @@
 # wear_os_rotary_plugin
 
-[![pub package](https://img.shields.io/pub/v/wear_os_rotary_plugin.svg)](https://pub.dev/packages/wear_os_rotary_plugin)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![pub package](https://img.shields.io/badge/version-0.1.0-blue?style=flat-square)](https://pub.dev/packages/wear_os_rotary_plugin)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
 A Flutter package providing a beautiful circular scrollbar overlay for Wear OS screens. This package works seamlessly with the [`wearable_rotary`](https://pub.dev/packages/wearable_rotary) package to provide visual feedback for rotary input scrolling on Wear OS devices.
 
