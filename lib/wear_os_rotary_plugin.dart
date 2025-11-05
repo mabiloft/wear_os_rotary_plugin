@@ -258,7 +258,8 @@ class _WearOsScrollbarState extends State<_WearOsScrollbar> {
     return CustomPaint(
       size: MediaQuery.of(context).size,
       painter: _RoundProgressBarPainter(
-        color: Theme.of(context).highlightColor.withValues(alpha: 0.2),
+        // Using withOpacity for Flutter 3.0+ compatibility
+        color: Theme.of(context).highlightColor.withOpacity(0.2), // ignore: deprecated_member_use
         trackPadding: widget.padding,
         trackWidth: widget.width,
       ),
@@ -271,7 +272,8 @@ class _WearOsScrollbarState extends State<_WearOsScrollbar> {
       painter: _RoundProgressBarPainter(
         start: _position * (1 - _thumbSize),
         length: _thumbSize,
-        color: Theme.of(context).highlightColor.withValues(alpha: 1),
+        // Using withOpacity for Flutter 3.0+ compatibility
+        color: Theme.of(context).highlightColor.withOpacity(1), // ignore: deprecated_member_use
         trackPadding: widget.padding,
         trackWidth: widget.width,
       ),

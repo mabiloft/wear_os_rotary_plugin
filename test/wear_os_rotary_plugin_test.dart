@@ -5,46 +5,38 @@ import 'package:wear_os_rotary_plugin/wear_os_rotary_plugin.dart';
 void main() {
   group('WearOsScrollbar', () {
     testWidgets('creates a WearOsScrollbar widget', (WidgetTester tester) async {
-      final ScrollController controller = ScrollController();
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: WearOsScrollbar(
-              controller: controller,
-              child: const SizedBox(),
+              builder: (context, controller) => const SizedBox(),
             ),
           ),
         ),
       );
       expect(find.byType(WearOsScrollbar), findsOneWidget);
-      controller.dispose();
     });
 
-    testWidgets('displays child widget', (WidgetTester tester) async {
-      final ScrollController controller = ScrollController();
+    testWidgets('displays child widget from builder', (WidgetTester tester) async {
       const Widget testChild = Text('Test Child');
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: WearOsScrollbar(
-              controller: controller,
-              child: testChild,
+              builder: (context, controller) => testChild,
             ),
           ),
         ),
       );
       expect(find.text('Test Child'), findsOneWidget);
-      controller.dispose();
     });
 
     testWidgets('uses default values', (WidgetTester tester) async {
-      final ScrollController controller = ScrollController();
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: WearOsScrollbar(
-              controller: controller,
-              child: const SizedBox(),
+              builder: (context, controller) => const SizedBox(),
             ),
           ),
         ),
@@ -59,16 +51,13 @@ void main() {
       expect(widget.opacityAnimationCurve, equals(Curves.easeInOut));
       expect(widget.opacityAnimationDuration, equals(const Duration(milliseconds: 500)));
       expect(widget.autoHideDuration, equals(const Duration(milliseconds: 1500)));
-      controller.dispose();
     });
 
     testWidgets('uses custom values', (WidgetTester tester) async {
-      final ScrollController controller = ScrollController();
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: WearOsScrollbar(
-              controller: controller,
               autoHide: false,
               threshold: 0.3,
               bezelCorrection: 0.6,
@@ -78,7 +67,7 @@ void main() {
               opacityAnimationCurve: Curves.easeOut,
               opacityAnimationDuration: const Duration(milliseconds: 300),
               autoHideDuration: const Duration(seconds: 2),
-              child: const SizedBox(),
+              builder: (context, controller) => const SizedBox(),
             ),
           ),
         ),
@@ -93,17 +82,14 @@ void main() {
       expect(widget.opacityAnimationCurve, equals(Curves.easeOut));
       expect(widget.opacityAnimationDuration, equals(const Duration(milliseconds: 300)));
       expect(widget.autoHideDuration, equals(const Duration(seconds: 2)));
-      controller.dispose();
     });
 
     testWidgets('updates scrollbar when scroll position changes', (WidgetTester tester) async {
-      final ScrollController controller = ScrollController();
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: WearOsScrollbar(
-              controller: controller,
-              child: ListView(
+              builder: (context, controller) => ListView(
                 controller: controller,
                 children: List.generate(
                   50,
@@ -119,7 +105,6 @@ void main() {
       );
       await tester.pumpAndSettle();
       expect(find.byType(WearOsScrollbar), findsOneWidget);
-      controller.dispose();
     });
   });
 }

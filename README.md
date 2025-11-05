@@ -59,12 +59,9 @@ class MyWearOSScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RotaryScrollController scrollController = RotaryScrollController();
-    
     return WearOsScrollbar(
-      controller: scrollController,
-      child: ListView.builder(
-        controller: scrollController,
+      builder: (context, rotaryScrollController) => ListView.builder(
+        controller: rotaryScrollController,
         padding: const EdgeInsets.all(16),
         itemCount: 50,
         itemBuilder: (context, index) => Padding(
@@ -92,10 +89,7 @@ class CustomizedWearOSScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RotaryScrollController scrollController = RotaryScrollController();
-    
     return WearOsScrollbar(
-      controller: scrollController,
       autoHide: true,
       autoHideDuration: const Duration(seconds: 2),
       padding: 12.0,
@@ -103,8 +97,8 @@ class CustomizedWearOSScreen extends StatelessWidget {
       speed: 60.0,
       opacityAnimationCurve: Curves.easeOut,
       opacityAnimationDuration: const Duration(milliseconds: 300),
-      child: ListView.builder(
-        controller: scrollController,
+      builder: (context, rotaryScrollController) => ListView.builder(
+        controller: rotaryScrollController,
         itemCount: 100,
         itemBuilder: (context, index) => ListTile(
           title: Text('Item $index'),
@@ -124,8 +118,7 @@ A widget that displays a circular scrollbar overlay for Wear OS screens.
 
 #### Parameters
 
-- `controller` (required): The [ScrollController] shared between the scrollbar and scrollable widget
-- `child` (required): The child widget to display with the scrollbar overlay
+- `builder` (required): Builder function that receives a [RotaryScrollController] and builds the scrollable widget. The controller is automatically created and managed by the widget.
 - `autoHide` (default: `true`): Whether to automatically hide the scrollbar after scrolling stops
 - `threshold` (default: `0.2`): Threshold to avoid jittering when scrolling
 - `bezelCorrection` (default: `0.5`): Bezel correction factor for Samsung devices
@@ -138,8 +131,8 @@ A widget that displays a circular scrollbar overlay for Wear OS screens.
 
 ## Important Notes
 
-- **Shared Controller**: The [ScrollController] must be shared between the [WearOsScrollbar] and your scrollable widget (ListView, SingleChildScrollView, etc.)
-- **Rotary Input**: This package provides the visual scrollbar. Rotary input is handled by the [`wearable_rotary`](https://pub.dev/packages/wearable_rotary) package's `RotaryScrollController`
+- **Automatic Controller Management**: The [RotaryScrollController] is automatically created and managed by [WearOsScrollbar]. You don't need to create or dispose it manually.
+- **Rotary Input**: This package provides the visual scrollbar. Rotary input is handled by the [`wearable_rotary`](https://pub.dev/packages/wearable_rotary) package's `RotaryScrollController`, which is automatically provided to your builder function.
 - **Wear OS Only**: This package is designed for Wear OS devices and may not work as expected on other platforms
 
 ## Contributing
