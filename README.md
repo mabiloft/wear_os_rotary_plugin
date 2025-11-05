@@ -16,17 +16,29 @@ A Flutter package providing a beautiful circular scrollbar overlay for Wear OS s
 
 ## Installation
 
-Add this to your package's `pubspec.yaml` file:
+### Depend on it
+
+Run this command:
+
+```bash
+flutter pub add wear_os_rotary_plugin
+```
+
+This will add a line like this to your package's `pubspec.yaml` (and run an implicit `flutter pub get`):
 
 ```yaml
 dependencies:
   wear_os_rotary_plugin: ^0.1.0
 ```
 
-Then run:
+Alternatively, your editor might support `flutter pub get`. Check the docs for your editor to learn more.
 
-```bash
-flutter pub get
+### Import it
+
+Now in your Dart code, you can use:
+
+```dart
+import 'package:wear_os_rotary_plugin/wear_os_rotary_plugin.dart';
 ```
 
 ## Android Configuration
