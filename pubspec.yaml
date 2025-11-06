@@ -1,6 +1,6 @@
 name: wear_os_rotary_plugin
 description: A Flutter package providing a circular scrollbar overlay for Wear OS screens that works seamlessly with the wearable_rotary package.
-version: 0.1.0
+version: 1.0.0
 homepage: https://github.com/mabiloft/wear_os_rotary_plugin
 repository: https://github.com/mabiloft/wear_os_rotary_plugin
 issue_tracker: https://github.com/mabiloft/wear_os_rotary_plugin/issues
