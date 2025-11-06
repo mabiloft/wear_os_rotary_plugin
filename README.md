@@ -21,7 +21,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  wear_os_rotary_plugin: ^0.1.0
+  wear_os_rotary_plugin: ^1.0.1
 ```
 
 Then run:

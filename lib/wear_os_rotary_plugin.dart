@@ -1,4 +1,5 @@
-/// A Flutter package providing a circular scrollbar overlay for Wear OS screens.
+/// A Flutter package providing a circular scrollbar overlay for Wear OS
+/// screens.
 ///
 /// This package provides the [WearOsScrollbar] widget, which displays a visual
 /// circular scrollbar that binds to a [ScrollController] and automatically
@@ -14,9 +15,10 @@ export 'package:wearable_rotary/wearable_rotary.dart';
 
 /// A circular scrollbar overlay widget for Wear OS screens.
 ///
-/// The [WearOsScrollbar] widget automatically manages a [RotaryScrollController]
-/// and wraps the child with a visual circular scrollbar that tracks scroll position.
-/// It's designed to work with the `wearable_rotary` package's `RotaryScrollController`
+/// The [WearOsScrollbar] widget automatically manages a
+/// [RotaryScrollController] and wraps the child with a visual circular
+/// scrollbar that tracks scroll position. It's designed to work with the
+/// `wearable_rotary` package's `RotaryScrollController`
 /// to provide visual feedback for rotary input scrolling on Wear OS devices.
 ///
 /// The scrollbar is positioned around the edge of the screen, starting at the
@@ -56,8 +58,12 @@ class WearOsScrollbar extends StatefulWidget {
   /// the scrollable widget.
   ///
   /// The controller is automatically created and managed by this widget.
-  /// It should be passed to the scrollable widget (e.g., [ListView], [SingleChildScrollView]).
-  final Widget Function(BuildContext context, RotaryScrollController rotaryScrollController) builder;
+  /// It should be passed to the scrollable widget (e.g., [ListView],
+  /// [SingleChildScrollView]).
+  final Widget Function(
+    BuildContext context,
+    RotaryScrollController rotaryScrollController,
+  ) builder;
 
   /// Whether to automatically hide the scrollbar after scrolling stops.
   ///
@@ -220,8 +226,9 @@ class _WearOsScrollbarState extends State<_WearOsScrollbar> {
     if (!widget.controller.hasClients) {
       return;
     }
+    final viewportDimension = widget.controller.position.viewportDimension;
     _maxPosition = widget.controller.position.maxScrollExtent;
-    _thumbSize = 1 / ((_maxPosition / widget.controller.position.viewportDimension) + 1);
+    _thumbSize = 1 / ((_maxPosition / viewportDimension) + 1);
     _position = widget.controller.offset / math.max(_maxPosition, 1);
   }
 
@@ -259,7 +266,9 @@ class _WearOsScrollbarState extends State<_WearOsScrollbar> {
       size: MediaQuery.of(context).size,
       painter: _RoundProgressBarPainter(
         // Using withOpacity for Flutter 3.0+ compatibility
-        color: Theme.of(context).highlightColor.withOpacity(0.2), // ignore: deprecated_member_use
+        color: Theme.of(context)
+            .highlightColor
+            .withOpacity(0.2), // ignore: deprecated_member_use
         trackPadding: widget.padding,
         trackWidth: widget.width,
       ),
@@ -273,7 +282,9 @@ class _WearOsScrollbarState extends State<_WearOsScrollbar> {
         start: _position * (1 - _thumbSize),
         length: _thumbSize,
         // Using withOpacity for Flutter 3.0+ compatibility
-        color: Theme.of(context).highlightColor.withOpacity(1), // ignore: deprecated_member_use
+        color: Theme.of(context)
+            .highlightColor
+            .withOpacity(1), // ignore: deprecated_member_use
         trackPadding: widget.padding,
         trackWidth: widget.width,
       ),
@@ -350,7 +361,11 @@ class _RoundProgressBarPainter extends CustomPainter {
 
     final path = Path()
       ..arcTo(
-        Rect.fromCenter(center: centerOffset, width: innerWidth, height: innerHeight),
+        Rect.fromCenter(
+          center: centerOffset,
+          width: innerWidth,
+          height: innerHeight,
+        ),
         _startingAngle + _angleLength * start,
         _angleLength * length,
         true,

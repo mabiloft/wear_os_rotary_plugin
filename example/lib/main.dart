@@ -88,7 +88,11 @@ class BasicExampleScreen extends StatelessWidget {
         title: const Text('Basic Example'),
       ),
       body: WearOsScrollbar(
-        builder: (BuildContext context, RotaryScrollController rotaryScrollController) => ListView.builder(
+        builder: (
+          BuildContext context,
+          RotaryScrollController rotaryScrollController,
+        ) =>
+            ListView.builder(
           controller: rotaryScrollController,
           padding: const EdgeInsets.all(16),
           itemCount: 50,
@@ -126,7 +130,11 @@ class CustomizedExampleScreen extends StatelessWidget {
         speed: 60,
         opacityAnimationCurve: Curves.easeOut,
         opacityAnimationDuration: const Duration(milliseconds: 300),
-        builder: (BuildContext context, RotaryScrollController rotaryScrollController) => ListView.builder(
+        builder: (
+          BuildContext context,
+          RotaryScrollController rotaryScrollController,
+        ) =>
+            ListView.builder(
           controller: rotaryScrollController,
           padding: const EdgeInsets.all(16),
           itemCount: 100,
@@ -159,7 +167,11 @@ class NoAutoHideExampleScreen extends StatelessWidget {
       ),
       body: WearOsScrollbar(
         autoHide: false,
-        builder: (BuildContext context, RotaryScrollController rotaryScrollController) => ListView.builder(
+        builder: (
+          BuildContext context,
+          RotaryScrollController rotaryScrollController,
+        ) =>
+            ListView.builder(
           controller: rotaryScrollController,
           padding: const EdgeInsets.all(16),
           itemCount: 30,
